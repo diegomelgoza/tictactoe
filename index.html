@@ -8,20 +8,19 @@
         <h1>Tic Tac Toe</h1>
         <h3 id="status"></h3>
         <div id="container">
-            <div id="menu">
-                <button id="human">Start</button>
-                <button id="restart">Restart</button>
-            </div>
             <div id="grid">
-                <div class="cell top left" id="0"></div>
-                <div class="cell top" id="1"></div>
-                <div class="cell top right" id="2"></div>
-                <div class="cell left" id="3"></div>
-                <div class="cell" id="4"></div>
-                <div class="cell right" id="5"></div>
-                <div class="cell bottom left" id="6"></div>
-                <div class="cell bottom" id="7"></div>
-                <div class="cell bottom right" id="8"></div>
+                <div class="cell top left" data-index="0"></div>
+                <div class="cell top" data-index="1"></div>
+                <div class="cell top right" data-index="2"></div>
+                <div class="cell left" data-index="3"></div>
+                <div class="cell" data-index="4"></div>
+                <div class="cell right" data-index="5"></div>
+                <div class="cell bottom left" data-index="6"></div>
+                <div class="cell bottom" data-index="7"></div>
+                <div class="cell bottom right" data-index="8"></div>
+            </div>
+            <div id="menu">
+                <button id="restart">Restart</button>
             </div>
         </div>
         <script src="script.js"></script>
