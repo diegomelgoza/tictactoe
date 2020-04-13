@@ -8,12 +8,12 @@ const players = (() => {
     let player = 'X';
 
     // display messages
-    const win = () => `Player ${player} has won!`;
+    const win = (e) => `Player ${e} has won!`;
     const draw = () => `Game ended in a draw!`;
-    const currentTurn = (e) => `It's ${e}'s turn`;
+    //const currentTurn = (e) => `It's ${e}'s turn`;
 
     //if we dont return player then the first move will be undefined
-    return {player, win, draw, currentTurn}
+    return {player, win, draw}
 })();
 
 // game modules 
@@ -26,11 +26,26 @@ const game = (() => {
         // to get the number for gameState function
         const index = parseInt(clicked.getAttribute('data-index'));
         // if the cell has been filled it cant be clicked again
-        if (gameArr[index] !== "") return;
+        if (gameArr[index] !== '') return;
         // fill the cell with the current player
         gameArr[index] = players.player;
         // make it appear on the ui
         clicked.innerHTML = players.player;
+        gameState();
+    }
+    
+    const computerTurn = () => {
+        let computer = players.player;
+        // choose a number between 0-8
+        let random = Math.floor(Math.random() * 8);
+        // check if that space is available
+        if(gameArr[random] !== '') return computerTurn();
+        // fill that slot with 'O'
+        gameArr[random] = computer;
+        // make it appear on ui
+        const cell = document.querySelectorAll('.cell');
+        let p = cell[random]
+        p.innerHTML = computer;
         gameState();
     }
 
@@ -70,7 +85,7 @@ const game = (() => {
         }
         // a user wins 
         if(round) {
-            display.innerHTML = players.win();
+            display.innerHTML = players.win(players.player);
             return;
         }
         // game is a tie
@@ -87,14 +102,20 @@ const game = (() => {
         // if 'X' went then its 'O's turn else its 'X' turn
         players.player = players.player === 'X' ? 'O' : 'X';
         // update ui turn
-        display.innerHTML = players.currentTurn(players.player);
+        //display.innerHTML = players.currentTurn(players.player);
+        if(players.player === 'O') {
+            return computerTurn();
+        }
     }
+
+    
 
     // restart game
     const restartGame = () => {
         gameArr = ["", "", "", "", "", "", "", "", ""];
         players.player = 'X';
-        display.innerHTML = players.currentTurn(players.player);
+        display.innerHTML = '';
+        //display.innerHTML = players.currentTurn(players.player);
         const r = document.querySelectorAll('.cell')
         r.forEach(cell => cell.innerHTML = "");
     };
